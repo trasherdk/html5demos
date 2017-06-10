@@ -1,13 +1,23 @@
+<filesMatch "\.(php|html|htm|js|css|htaccess)$">
+  FileETag None
+  <ifModule mod_headers.c>
+     Header unset ETag
+     Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+     Header set Pragma "no-cache"
+     Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+  </ifModule>
+</filesMatch>
+
 <IfModule mod_rewrite.c>
-Options +FollowSymLinks +ExecCGI
+#Options +FollowSymLinks +ExecCGI
+
 RewriteEngine On
-RewriteBase /
+RewriteBase /html5demos
 
 # no-www.org
-RewriteCond %{HTTP_HOST} ^www\.html5demos\.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^www\.html5demo\.com$ [NC,OR]
-RewriteCond %{HTTP_HOST} ^html5demo\.com$ [NC]
-RewriteRule ^(.*)$ http://html5demos.com/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} ^develop\.fumlersoft\.dk/html5demos$ [NC]
+#RewriteCond %{HTTP_HOST} ^develop\.fumlersoft\.dk/html5demos$ [NC,OR]
+#RewriteRule ^(.*)$ http://develop.fumlersoft.dk/html5demos/$1 [R=301,L]
 
 # RewriteCond %{HTTP_REFERER} ^$ [OR]
 # RewriteCond %{HTTP_REFERER} !^http://(www\.|offline\.)?html5demos.com/.*$
@@ -21,6 +31,6 @@ RewriteRule .* - [L]
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule (.*) $1.html [QSA,L]
 
-RewriteRule ^(.*)$ page.php [QSA,L]
+RewriteRule ^(.*)$ /html5demos/page.php [QSA,L]
 
 </IfModule>
